@@ -20,18 +20,28 @@ router.post("/addbook", (req, res) => {
       deadline: req.body.deadline
     });
 
-    book.save().then(result => {
-      console.log(result);
-      res.send(result);
-    })
-    .catch(error => console.log(error.message)
-    )
+    book
+      .save()
+      .then(result => {
+        console.log(result);
+        res.send(result);
+      })
+      .catch(error => console.log(error.message));
     console.log(book);
   } else {
     res.status(422);
     res.json({
-      message: "Form fields are required to save."
+      message: "Required fields cannot be empty"
     });
+  }
+});
+
+router.get("/addbook", async (req, res) => {
+  try {
+    const bookEntries = await Book.find({});
+    res.send(bookEntries);
+  } catch (error) {
+    console.log(error.message);
   }
 });
 
