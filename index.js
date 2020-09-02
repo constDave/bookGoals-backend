@@ -2,7 +2,7 @@ const express = require("express");
 const port = process.env.PORT || 3000;
 const app = express();
 const addBookRouter = require('../server/routes/addBook')
-const volleyball = require('volleyball')
+const morgan = require('morgan')
 const cors = require('cors')
 const dotenv = require('dotenv')
 
@@ -11,7 +11,7 @@ dotenv.config()
 app.use(cors());
 app.use(express.json())
 app.use(addBookRouter)
-app.use(volleyball)
+app.use(morgan('dev'))
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL, {
